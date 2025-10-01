@@ -3,6 +3,24 @@
         <title>The Virtual Reality Experience by Brandon Lin</title>
         <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     </header>
+    <script>
+        AFRAME.registerComponent('modify-materials', {
+            init: function () {
+            // Wait for model to load.
+            this.el.addEventListener('model-loaded', () => {
+                // Grab the mesh / scene.
+                const obj = this.el.getObject3D('mesh');
+                // Go over the submeshes and modify materials we want.
+                obj.traverse(node => {
+                if (node.name.indexOf('ship') !== -1) {
+                    node.material.color.set('red');
+                }
+                });
+            });
+            }
+        });
+    </script>
+
     <body style="text-align: center">
         <br>
         <h1>The Name by Brandon Lin</h1>
@@ -10,8 +28,17 @@
         <a-scene>
             <a-assets>
                 <img src="Feaky.jpg" id="texture">
+                <a-asset-item id="ichibanKasuga" src="ichiban_kasuga_sonic_racing_crossworlds/scene.gltf"></a-asset-item>
             </a-assets>
             <a-sky color="#ECECEC"></a-sky>
+            <a-entity position="10 0 -5">
+                <a-plane position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+                <a-sphere position="0 1 0" scale="1.5 1 2"></a-sphere>
+            </a-entity>
+            <a-entity position="5 0 -5">
+                <a-plane position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+                <a-entity position="0 0 0" gltf-model="#ichibanKasuga" modify-materials></a-entity>
+            </a-entity>
             <a-entity position="0 0 -5"id="textest">
                 <a-plane position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
                 <a-box position="0 1 0" width="5" depth=".5" color="green">
@@ -44,13 +71,13 @@
                 <a-plane position="0 0 0" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
                 <a-box position="0, 0, 0" width="1" depth="0.1" height="1"></a-box>
                 <a-box position="1, 0, 0" width="1" depth="0.1" height="1"></a-box>
-                <a-box position="2, 0, 0" width="1" depth="0.1" height="1"></a-box>
+                <a-box position="-1, 0, 0" width="1" depth="0.1" height="1"></a-box>
                 <a-box position="0, 1, 0" width="1" depth="0.1" height="1"></a-box>
                 <a-box position="1, 1, 0" width="1" depth="0.1" height="1"></a-box>
-                <a-box position="2, 1, 0" width="1" depth="0.1" height="1"></a-box>
+                <a-box position="-1, 1, 0" width="1" depth="0.1" height="1"></a-box>
                 <a-box position="0, 2, 0" width="1" depth="0.1" height="1"></a-box>
                 <a-box position="1, 2, 0" width="1" depth="0.1" height="1"></a-box>
-                <a-box position="2, 2, 0" width="1" depth="0.1" height="1"></a-box>
+                <a-box position="-1, 2, 0" width="1" depth="0.1" height="1"></a-box>
             </a-entity>
         </a-scene>
     </body>
